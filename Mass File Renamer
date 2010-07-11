@@ -1,0 +1,92 @@
+#! /usr/bin/python
+#  -*- coding: utf-8 -*-
+# Requires zenity
+
+"""
+Copyright (C) 2009-2010 Thiago Bellini<thibellini@gmail.com>
+
+MassFileRename is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
+
+import os
+import re
+import sys
+
+
+files = []
+number = 1
+pattern = ''
+
+
+def makeNewName(oldname, newname, number):
+	thename = ''
+	suffix = ''
+	if oldname.find('.') != -1: # This will maintain the extension ex. ".jpg" and turn it lowercase
+		oldnameList = oldname.split('.')
+		suffix = oldnameList[len(oldnameList)-1].lower()
+	
+	if suffix != '':
+		thename = newname + '_' + number + '.' + suffix
+	else:
+		thename = newname + '_' + number
+	
+	return thename
+
+def getPattern():
+	pattern = os.popen('zenity --title "fileRenamer" --entry --text "Enter the Pattern:" --width=320')
+	pattern = pattern.read().split('\n')[0]
+	return pattern.find('/') == -1 ? pattern : '' # Returns a '' string if '/' is found
+
+def getFiles(args)
+	files = []
+	for i in args:
+		files.append(i)
+	
+	return files
+
+
+files = getFiles(sys.argv[1:])
+pattern = getPattern()
+
+if files == [] or pattern == '': # Exit if no files or pattern
+	sys.exit(1)
+
+lenFiles = len(str(len(files)))
+if lenFiles == 1:
+	lenFiles = 2 #Set default to 2, because "File_01" is better than "File_1" =P
+
+for filee in files:
+	#Skip folders, symlinks, mountpoints
+	if os.path.isdir(filee):
+		pass
+	elif os.path.islink(filee):
+		pass
+	elif os.path.ismount(filee):
+		pass
+	else:
+		oldname = os.path.split(filee)[1]
+		newname = makeNewName(oldname, pattern, str(number).zfill(lenFiles))
+		newfile = os.path.join(os.path.split(filee)[0], newname)
+		if filee != newfile: # Just a precaution, so you won`t loose data ;D
+			while os.path.isfile(newfile):
+				number = number + 1
+				newname = makeNewName(oldname, pattern, str(number).zfill(lenFiles))
+				newfile = os.path.join(os.path.split(filee)[0], newname)
+				if filee == newfile:
+					break
+		os.rename(filee,newfile)
+		number = number + 1
+
+sys.exit(0) # End of script!

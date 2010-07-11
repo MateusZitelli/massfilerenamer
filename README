@@ -1,0 +1,29 @@
+Mass File Renamer v1.0
+
+by Thiago Bellini<thibellini@gmail.com>
+
+-Requiriments:
+--Python
+--Zenity (tip: $sudo apt-get install zenity)
+
+-Features:
+--Mass rename selected files
+--Ignore Folders, Mount Points, Symlinks
+--Auto-increment number after the name, ex. "File_01.jpg", "File_02.jpg"
+--Preserves the extension and automaticly makes it lowcase
+
+-Changelog:
+
+--1.0
+ --Initial Release
+
+-How to Install:
+--Copy the file "MassFileRenamer" to "~/.gnome2/nautilus-scripts"
+--Set its permission to enable to run as a program:
+  --Click in it with the right button, go to propertis. In permissions tab check the "Run" checkbox.
+
+-How to use:
+--Select the files you want to Mass Rename
+--Click with the right button, go to Scripts and select "MassFileRenamer"
+--Give a pattern
+--The magic is done ;D
