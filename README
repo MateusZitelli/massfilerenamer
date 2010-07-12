@@ -18,9 +18,7 @@ by Thiago Bellini<thibellini@gmail.com>
   --Initial Release
 
 -How to Install:
---Copy the file "Mass File Renamer" to "~/.gnome2/nautilus-scripts"
---Set its permission to enable to run as a program:
-  --Click in it with the right button, go to propertis. In permissions tab check the "Run" checkbox.
+--Run the "INSTALL.sh" script and it will be installed!
 
 -How to use:
 --Select the files you want to Mass Rename
