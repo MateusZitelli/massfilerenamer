@@ -47,13 +47,15 @@ def makeNewName(oldname, newname, number):
 def getPattern():
 	pattern = os.popen('zenity --title "fileRenamer" --entry --text "Enter the Pattern:" --width=320')
 	pattern = pattern.read().split('\n')[0]
-	return pattern.find('/') == -1 ? pattern : '' # Returns a '' string if '/' is found
+	if pattern.find('/') < 0:
+		return pattern
+	else:
+		return ''
 
-def getFiles(args)
+def getFiles(args):
 	files = []
 	for i in args:
 		files.append(i)
-	
 	return files
 
 
