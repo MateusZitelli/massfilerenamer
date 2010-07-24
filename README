@@ -1,27 +1,7 @@
-Mass File Renamer v1.0
+Mass File Renamer v1.0.3 by Thiago Bellini <thiago.bellini@hackedbellini.org>
 
-by Thiago Bellini<thibellini@gmail.com>
-
--Requiriments:
---Python
---Zenity
-
--Features:
---Mass rename the selected files
---Ignore Folders, Mount Points, Symlinks (to avoid issues)
---Auto-increment number after the pattern, ex. "File_01.jpg", "File_02.jpg"
---Preserves the extension and automaticly makes it lowcase
-
-
--Changelog:
---1.0
-  --Initial Release
-
--How to Install:
---Run the "INSTALL.sh" script and it will be installed!
-
--How to use:
---Select the files you want to Mass Rename
---Click with the right button, go to Scripts and select "MassFileRenamer"
---Give a pattern
---The magic is done ;D
+Useful links:
+    * Wiki: http://wiki.github.com/hackedbellini/massfilerenamer/
+    * Downloads: http://github.com/hackedbellini/massfilerenamer/downloads
+    * Issues: http://github.com/hackedbellini/massfilerenamer/issues
+    * Source: http://github.com/hackedbellini/massfilerenamer
