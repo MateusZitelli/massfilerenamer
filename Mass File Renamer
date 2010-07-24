@@ -74,8 +74,6 @@ for actual_file in files:
 	# Skip folders, symlinks, mountpoints
 	if os.path.isdir(actual_file):
 		pass
-	elif os.path.islink(actual_file):
-		pass
 	elif os.path.ismount(actual_file):
 		pass
 	else:
