@@ -30,19 +30,20 @@ number = 1
 pattern = ''
 
 
-def makeNewName(oldname, newname, number):
-	thename = ''
+def getNewName(oldname, newname, number):
+	return_name = ''
 	suffix = ''
 	if oldname.find('.') != -1: # This will maintain the extension ex. ".jpg" and turn it lowercase
 		oldnameList = oldname.split('.')
 		suffix = oldnameList[len(oldnameList)-1].lower()
 	
 	if suffix != '':
-		thename = newname + '_' + number + '.' + suffix
+		return_name = newname + '_' + number + '.' + suffix
 	else:
-		thename = newname + '_' + number
+		return_name = newname + '_' + number
 	
-	return thename
+	return return_name
+
 
 def getPattern():
 	pattern = os.popen('zenity --title "fileRenamer" --entry --text "Enter the Pattern:" --width=320')
@@ -52,9 +53,9 @@ def getPattern():
 	else:
 		return ''
 
-def getFiles(args):
+def getFiles(array):
 	files = []
-	for i in args:
+	for i in array:
 		files.append(i)
 	return files
 
@@ -62,33 +63,33 @@ def getFiles(args):
 files = getFiles(sys.argv[1:])
 pattern = getPattern()
 
-if files == [] or pattern == '': # Exit if no files or pattern
+if files == [] or pattern == '': # Exit if no files or invalid pattern
 	sys.exit(1)
 
-lenFiles = len(str(len(files)))
-if lenFiles == 1:
-	lenFiles = 2 #Set default to 2, because "File_01" is better than "File_1" =P
+len_files = len(str(len(files)))
+if len_files == 1:
+	len_files = 2 # Set default to 2, because "File_01" is better than "File_1"
 
-for filee in files:
-	#Skip folders, symlinks, mountpoints
-	if os.path.isdir(filee):
+for actual_file in files:
+	# Skip folders, symlinks, mountpoints
+	if os.path.isdir(actual_file):
 		pass
-	elif os.path.islink(filee):
+	elif os.path.islink(actual_file):
 		pass
-	elif os.path.ismount(filee):
+	elif os.path.ismount(actual_file):
 		pass
 	else:
-		oldname = os.path.split(filee)[1]
-		newname = makeNewName(oldname, pattern, str(number).zfill(lenFiles))
-		newfile = os.path.join(os.path.split(filee)[0], newname)
-		if filee != newfile: # Just a precaution, so you won`t loose data ;D
-			while os.path.isfile(newfile):
+		old_name = os.path.split(actual_file)[1]
+		new_name = getNewName(old_name, pattern, str(number).zfill(len_files))
+		new_file = os.path.join(os.path.split(actual_file)[0], new_name)
+		if actual_file != new_file: # Just a precaution, so you won`t loose data ;D
+			while os.path.isfile(new_file):
 				number = number + 1
-				newname = makeNewName(oldname, pattern, str(number).zfill(lenFiles))
-				newfile = os.path.join(os.path.split(filee)[0], newname)
-				if filee == newfile:
+				new_name = getNewName(old_name, pattern, str(number).zfill(len_files))
+				new_file = os.path.join(os.path.split(actual_file)[0], new_name)
+				if actual_file == new_file:
 					break
-		os.rename(filee,newfile)
+		os.rename(actual_file, new_file)
 		number = number + 1
 
 sys.exit(0) # End of script!
