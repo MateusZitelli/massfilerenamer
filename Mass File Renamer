@@ -35,7 +35,7 @@ def getNewName(oldname, newname, number):
 	suffix = ''
 	if oldname.find('.') != -1: # This will maintain the extension ex. ".jpg" and turn it lowercase
 		oldnameList = oldname.split('.')
-		suffix = oldnameList[len(oldnameList)-1].lower()
+		suffix = oldnameList[-1].lower()
 	
 	if suffix != '':
 		return_name = newname + '_' + number + '.' + suffix
